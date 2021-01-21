@@ -33,6 +33,7 @@ import com.ggondimrb.libraryapi.entity.Book;
 import com.ggondimrb.libraryapi.exception.BusinessException;
 import com.ggondimrb.libraryapi.resources.BookController;
 import com.ggondimrb.libraryapi.service.BookService;
+import com.ggondimrb.libraryapi.service.LoanService;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
@@ -47,6 +48,9 @@ public class BookControllerTest {
 	
 	@MockBean
 	BookService service;
+	
+	@MockBean
+	LoanService loanService;
 	
 	@Test
 	@DisplayName("Deve criar um livro com sucesso")

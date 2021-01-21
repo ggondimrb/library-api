@@ -32,10 +32,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/books")
+@RequiredArgsConstructor
 @Api("Book API")
 @Slf4j
 public class BookController {
@@ -44,12 +46,6 @@ public class BookController {
     private final ModelMapper modelMapper;
     private final LoanService loanService;
     
-	public BookController(BookService service, ModelMapper modelMapper, LoanService loanService) {
-		this.service = service;
-		this.modelMapper = modelMapper;
-		this.loanService = loanService;
-	}
-
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation("Creates a book")
@@ -83,7 +79,7 @@ public class BookController {
 	
 	@PutMapping("{id}")
 	@ApiOperation("Updates a book")
-	public BookDTO update( @PathVariable Long id, BookDTO dto) {
+	public BookDTO update( @PathVariable Long id, @RequestBody @Valid BookDTO dto) {
 		return service.getById(id).map(book -> {
 			
 			book.setAuthor(dto.getAuthor());
